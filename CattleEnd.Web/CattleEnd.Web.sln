@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CattleEnd.Web", "CattleEnd.Web\CattleEnd.Web.csproj", "{A74BCA73-94DD-41D6-A579-AA5B06B459B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CattleEnd.DataAccessLayer", "..\CattleEnd.DataAccessLayer\CattleEnd.DataAccessLayer.csproj", "{65AEC738-EA25-4C72-9A20-37A5A7A2158F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A74BCA73-94DD-41D6-A579-AA5B06B459B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A74BCA73-94DD-41D6-A579-AA5B06B459B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A74BCA73-94DD-41D6-A579-AA5B06B459B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A74BCA73-94DD-41D6-A579-AA5B06B459B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65AEC738-EA25-4C72-9A20-37A5A7A2158F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65AEC738-EA25-4C72-9A20-37A5A7A2158F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65AEC738-EA25-4C72-9A20-37A5A7A2158F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65AEC738-EA25-4C72-9A20-37A5A7A2158F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
