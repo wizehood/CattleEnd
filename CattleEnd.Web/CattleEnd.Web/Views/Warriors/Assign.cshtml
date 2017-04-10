@@ -1,0 +1,39 @@
+﻿@model CattleEnd.SharedModels.Models.Warrior
+
+@{
+    ViewBag.Title = "Assign guard day";
+}
+
+<h2>Are you sure you want to assign additional guard day for this warrior?</h2>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Name
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            Species
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Species.Name)
+        </dd>
+        <dt>
+            Email
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Assign" class="btn btn-lg btn-success" /> |
+            @Html.ActionLink("Back to warrior list", "Index")
+        </div>
+    }
+</div>

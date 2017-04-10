@@ -13,6 +13,9 @@ namespace CattleEnd.Web
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            var dataDirectory = string.Concat(System.IO.Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName, "\\CattleEnd.DataAccessLayer\\Data\\");
+            AppDomain.CurrentDomain.SetData("DataDirectory", dataDirectory);
         }
     }
 }

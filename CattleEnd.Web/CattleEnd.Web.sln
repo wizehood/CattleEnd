@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CattleEnd.Web", "CattleEnd.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CattleEnd.DataAccessLayer", "..\CattleEnd.DataAccessLayer\CattleEnd.DataAccessLayer.csproj", "{65AEC738-EA25-4C72-9A20-37A5A7A2158F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CattleEnd.SharedModels", "..\CattleEnd.SharedModels\CattleEnd.SharedModels.csproj", "{9E03EC0F-C4E1-4802-A824-B3DB05EAF265}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CattleEnd.ServiceLayer", "..\CattleEnd.ServiceLayer\CattleEnd.ServiceLayer.csproj", "{2811DA25-2B36-4750-9702-ABE7BA7BF62E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{65AEC738-EA25-4C72-9A20-37A5A7A2158F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65AEC738-EA25-4C72-9A20-37A5A7A2158F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65AEC738-EA25-4C72-9A20-37A5A7A2158F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E03EC0F-C4E1-4802-A824-B3DB05EAF265}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E03EC0F-C4E1-4802-A824-B3DB05EAF265}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E03EC0F-C4E1-4802-A824-B3DB05EAF265}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E03EC0F-C4E1-4802-A824-B3DB05EAF265}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2811DA25-2B36-4750-9702-ABE7BA7BF62E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2811DA25-2B36-4750-9702-ABE7BA7BF62E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2811DA25-2B36-4750-9702-ABE7BA7BF62E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2811DA25-2B36-4750-9702-ABE7BA7BF62E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<CattleEnd.SharedModels.Models.Schedule>
+
+@{
+    ViewBag.Title = "List of scheduled duties";
+}
+
+<h2>List of scheduled duties</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Guard date
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Warrior.Name)
+        </td>
+        <td>
+            @item.GuardDate.ToString("dd.MM.yyyy")
+        </td>
+    </tr>
+}
+
+</table>
