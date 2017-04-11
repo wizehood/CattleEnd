@@ -16,8 +16,10 @@ namespace CattleEnd.DataAccessLayer.Repositories
             {
                 var warriors = context.Warriors
                     .Include("Species")
+                    .Where(w => w.Deleted == false)
                     .OrderBy(w => w.Name)
                     .ToList();
+
                 return warriors;
             }
         }
@@ -30,6 +32,7 @@ namespace CattleEnd.DataAccessLayer.Repositories
                     .Include("Species")
                     .Where(w => w.Id == id)
                     .Single();
+
                 return warrior;
             }
         }
@@ -43,12 +46,26 @@ namespace CattleEnd.DataAccessLayer.Repositories
             }
         }
 
-        public void Create(Warrior warrior)
+        public List<string> GetEmails()
+        {
+            using (var context = new DatabaseContext())
+            {
+                var emails = context.Warriors
+                    .Where(w => w.Deleted == false)
+                    .Select(w => w.Email)
+                    .ToList();
+
+                return emails;
+            }
+        }
+
+        public int Create(Warrior warrior)
         {
             using (var context = new DatabaseContext())
             {
                 context.Warriors.Add(warrior);
                 context.SaveChanges();
+                return warrior.Id;
             }
         }
 

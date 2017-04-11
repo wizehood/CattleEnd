@@ -5,6 +5,7 @@ namespace CattleEnd.DataAccessLayer.Migrations
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
+    using System.IO;
     using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<CattleEnd.DataAccessLayer.Models.DatabaseContext>
@@ -12,6 +13,7 @@ namespace CattleEnd.DataAccessLayer.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            //AppDomain.CurrentDomain.SetData("DataDirectory", Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName + "\\CattleEnd.DataAccessLayer\\Data\\");
         }
 
         protected override void Seed(DatabaseContext context)
@@ -31,6 +33,10 @@ namespace CattleEnd.DataAccessLayer.Migrations
             //context.WarriorSpecies.Add(new WarriorSpecies
             //{
             //    Name = "Dwarf"
+            //});
+            //context.WarriorSpecies.Add(new WarriorSpecies
+            //{
+            //    Name = "Wizard"
             //});
             //context.SaveChanges();
         }

@@ -76,8 +76,11 @@ namespace CattleEnd.ServiceLayer.Services
         {
             try
             {
-                WarriorRepository.Create(warrior);
-                ScheduleRepository.ArrangeSchedule(warrior);
+                int id = WarriorRepository.Create(warrior);
+                warrior.Id = id;
+                var warriors = GetAllWarriors();
+                ScheduleRepository.ArrangeSchedule(warrior, warriors);
+
                 return true;
             }
             catch
@@ -91,6 +94,46 @@ namespace CattleEnd.ServiceLayer.Services
             try
             {
                 WarriorRepository.Delete(id);
+
+                var warriors = GetAllWarriors();
+                if (warriors.Count == 0)
+                {
+                    ClearSchedule();
+                }
+                else
+                {
+                    var deletedWarrior = GetWarriorById(id);
+                    warriors.Add(deletedWarrior);
+                    warriors = warriors.OrderBy(w => w.Name).ToList();
+                    ScheduleRepository.ArrangeSchedule(deletedWarrior, warriors);
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool AssignAdditionalDay(int id)
+        {
+            try
+            {
+                var warrior = WarriorRepository.GetById(id);
+                ScheduleRepository.AssignAdditionalDay(warrior);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool ClearSchedule()
+        {
+            try
+            {
+                ScheduleRepository.ClearSchedule();
                 return true;
             }
             catch

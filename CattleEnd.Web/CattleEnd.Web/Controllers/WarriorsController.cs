@@ -17,9 +17,7 @@ namespace CattleEnd.Web.Controllers
 
         public ActionResult Index()
         {
-            var warriors = webService.GetAllWarriors()
-                .Where(w => w.Deleted == false)
-                .ToList();
+            var warriors = webService.GetAllWarriors();
             return View(warriors);
         }
 
@@ -61,8 +59,7 @@ namespace CattleEnd.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AssignConfirmed(int id)
         {
-            //var isAssigned = warriorService.Delete(id);
-            var isAssigned = false;
+            var isAssigned = webService.AssignAdditionalDay(id);
             if (isAssigned)
             {
                 return RedirectToAction("Index");

@@ -103,8 +103,7 @@
     <Content Include="Content\css\style.css" />
     <Content Include="Content\img\fellowship.jpg" />
     <Content Include="Content\img\fellowship2.jpg" />
-    <Content Include="Content\img\fellowship3.jpg" />
-    <Content Include="Content\img\fellowship4.jpg" />
+    <Content Include="Content\img\legolas.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
@@ -142,12 +141,12 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Warriors\Create.cshtml" />
     <Content Include="Views\Warriors\Delete.cshtml" />
-    <Content Include="Views\Warriors\Edit.cshtml" />
     <Content Include="Views\Warriors\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Warriors\Assign.cshtml" />
     <Content Include="Views\Schedules\Index.cshtml" />
+    <Content Include="Views\Schedules\Clear.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

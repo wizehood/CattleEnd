@@ -23,6 +23,7 @@ namespace CattleEnd.DataAccessLayer.Repositories
                     .Include("Warrior")
                     .OrderBy(w => w.GuardDate)
                     .ToList();
+
                 return schedules;
             }
         }
@@ -54,9 +55,9 @@ namespace CattleEnd.DataAccessLayer.Repositories
             using (var context = new DatabaseContext())
             {
                 var guardDate = context.Schedules
-                    .OrderBy(s => s.GuardDate)
                     .Where(s => s.GuardDate > DateTime.Now)
                     .Where(s => s.WarriorId == warrior.Id)
+                    .OrderBy(s => s.GuardDate)
                     .Select(s => s.GuardDate)
                     .FirstOrDefault();
 
@@ -64,14 +65,11 @@ namespace CattleEnd.DataAccessLayer.Repositories
             }
         }
 
-        public void ArrangeSchedule(Warrior affectedWarrior)
+        public void ArrangeSchedule(Warrior affectedWarrior, List<Warrior> warriors)
         {
             using (var context = new DatabaseContext())
             {
-                var warriors = context.Warriors
-                    .Where(w => w.Deleted == false)
-                    .OrderBy(w => w.Name)
-                    .ToList();
+                var index = warriors.FindIndex(w => w.Id == affectedWarrior.Id);
 
                 //If there is no active dates in following x days 
                 //then get next guard date for previous warrior in list
@@ -79,21 +77,20 @@ namespace CattleEnd.DataAccessLayer.Repositories
                 if (initialDate == default(DateTime))
                 {
                     Warrior previousWarrior = null;
-                    var elementIndex = warriors.FindIndex(w => w.Name == affectedWarrior.Name);
                     if (warriors.Count > 1)
                     {
-                        if (elementIndex == 0)
+                        if (index == 0)
                         {
                             previousWarrior = warriors.ElementAt(warriors.Count - 1);
                         }
                         else
                         {
-                            previousWarrior = warriors.ElementAt(elementIndex - 1);
+                            previousWarrior = warriors.ElementAt(index - 1);
                         }
                     }
                     else
                     {
-                        previousWarrior = warriors.ElementAt(elementIndex);
+                        previousWarrior = warriors.ElementAt(index);
                     }
                     initialDate = GetNextGuardDate(previousWarrior);
                 }
@@ -101,27 +98,37 @@ namespace CattleEnd.DataAccessLayer.Repositories
                 if (initialDate != default(DateTime))
                 {
                     var schedules = context.Schedules
+                        .Where(s => s.GuardDate > DateTime.Now)
                         .OrderBy(s => s.GuardDate)
-                        .Where(s => s.GuardDate >= initialDate)
                         .ToList();
 
-                    var lastActiveSchedule = schedules
-                        .Where(s => s.GuardDate.Date == initialDate.Date)
-                        .SingleOrDefault();
-
-                    var lastActiveWarrior = lastActiveSchedule != null ? lastActiveSchedule.Warrior : null;
-
-                    var listIndex = 0;
-                    if (lastActiveWarrior != null)
+                    //Initial schedule state
+                    if (schedules.Count == 0)
                     {
-                        listIndex = warriors.FindIndex(w => w.Name == lastActiveWarrior.Name) + 1;
+                        index = 0;
+                    }
+
+                    //Marginal cases for date and index when warrior is deleted
+                    if (affectedWarrior.Deleted == true)
+                    {
+                        warriors.Remove(affectedWarrior);
+
+                        var firstSchedule = schedules.FirstOrDefault();
+                        if (firstSchedule != null && firstSchedule.WarriorId == affectedWarrior.Id)
+                        {
+                            initialDate = firstSchedule.GuardDate.Date.AddDays(-1);
+                        }
+                        if (index == warriors.Count)
+                        {
+                            index = 0;
+                        }
                     }
 
                     var totalDays = DaysToSchedule - (initialDate.Date - DateTime.Now.Date).Days;
                     for (var days = 1; days <= totalDays; days++)
                     {
                         var date = initialDate.Date.AddDays(days);
-                        var selectedWarrior = warriors.ElementAt(listIndex);
+                        var selectedWarrior = warriors.ElementAt(index);
                         var selectedSchedule = schedules
                             .Where(s => s.GuardDate.Date == date.Date)
                             .SingleOrDefault();
@@ -140,10 +147,73 @@ namespace CattleEnd.DataAccessLayer.Repositories
                             selectedSchedule.WarriorId = selectedWarrior.Id;
                             context.Entry(selectedSchedule).State = EntityState.Modified;
                         }
-                        listIndex = (listIndex == warriors.Count - 1) ? 0 : listIndex++;
+                        index = (index == warriors.Count - 1) ? 0 : index + 1;
                     }
                     context.SaveChanges();
                 }
+            }
+        }
+
+        public void AssignAdditionalDay(Warrior warrior)
+        {
+            using (var context = new DatabaseContext())
+            {
+                var guardDate = GetNextGuardDate(warrior);
+                if (guardDate == default(DateTime))
+                {
+                    guardDate = DateTime.Now.Date;
+                }
+
+                var schedules = context.Schedules
+                    .Where(s => s.GuardDate > guardDate)
+                    .OrderBy(s => s.GuardDate)
+                    .ToList();
+
+                //Copy list with neccessary info
+                var tempList = schedules
+                    .Select(s => new Schedule { WarriorId = s.WarriorId })
+                    .ToList();
+
+                if (schedules.Count > 0)
+                {
+                    schedules[0].WarriorId = warrior.Id;
+                    context.Entry(schedules[0]).State = EntityState.Modified;
+
+                    for (int i = 1; i < schedules.Count; i++)
+                    {
+                        schedules[i].WarriorId = tempList[i - 1].WarriorId;
+                        context.Entry(schedules[i]).State = EntityState.Modified;
+                    }
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public string GetResponsibleWarriorName()
+        {
+            using (var context = new DatabaseContext())
+            {
+                var schedules = context.Schedules
+                    .Include("Warrior")
+                    .ToList();
+
+                var matchedSchedule = schedules
+                    .Where(s => s.GuardDate.Date == DateTime.Now.Date)
+                    .SingleOrDefault();
+
+                if (matchedSchedule != null)
+                {
+                    return matchedSchedule.Warrior.Name;
+                }
+                return string.Empty;
+            }
+        }
+
+        public void ClearSchedule()
+        {
+            using (var context = new DatabaseContext())
+            {
+                context.Database.ExecuteSqlCommand("TRUNCATE TABLE Schedules");
             }
         }
     }

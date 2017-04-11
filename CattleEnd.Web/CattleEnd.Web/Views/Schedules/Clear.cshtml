@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Clear schedule";
+}
+
+<h2>Are you sure you want to clear the schedule?</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Clear" class="btn btn-lg btn-success" /> |
+        @Html.ActionLink("Back to list of scheduled duties", "Index")
+    </div>
+}
+

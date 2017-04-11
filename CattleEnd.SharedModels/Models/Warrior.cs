@@ -11,7 +11,6 @@ namespace CattleEnd.SharedModels.Models
     public class Warrior
     {
         [Key]
-        [Index(IsUnique = true)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
@@ -20,12 +19,12 @@ namespace CattleEnd.SharedModels.Models
         [ForeignKey("SpeciesId")]
         public virtual WarriorSpecies Species { get; set; }
 
-        [Index(IsUnique = true)]
         [StringLength(100, ErrorMessage = "Name must not be longer than 100 characters.")]
         [Required(ErrorMessage = "This field is required.")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "This field is required.")]
+        [EmailAddress(ErrorMessage = "Invalid Email address.")]
         public string Email { get; set; }
 
         public bool Deleted { get; set; }

@@ -31,9 +31,7 @@ namespace CattleEnd.DataAccessLayer.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.WarriorSpecies", t => t.SpeciesId, cascadeDelete: true)
-                .Index(t => t.Id, unique: true)
-                .Index(t => t.SpeciesId)
-                .Index(t => t.Name, unique: true);
+                .Index(t => t.SpeciesId);
             
             CreateTable(
                 "dbo.WarriorSpecies",
@@ -50,9 +48,7 @@ namespace CattleEnd.DataAccessLayer.Migrations
         {
             DropForeignKey("dbo.Schedules", "WarriorId", "dbo.Warriors");
             DropForeignKey("dbo.Warriors", "SpeciesId", "dbo.WarriorSpecies");
-            DropIndex("dbo.Warriors", new[] { "Name" });
             DropIndex("dbo.Warriors", new[] { "SpeciesId" });
-            DropIndex("dbo.Warriors", new[] { "Id" });
             DropIndex("dbo.Schedules", new[] { "WarriorId" });
             DropTable("dbo.WarriorSpecies");
             DropTable("dbo.Warriors");

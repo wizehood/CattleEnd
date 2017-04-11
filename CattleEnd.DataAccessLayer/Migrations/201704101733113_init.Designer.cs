@@ -13,7 +13,7 @@ namespace CattleEnd.DataAccessLayer.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201704100219286_init"; }
+            get { return "201704101733113_init"; }
         }
         
         string IMigrationMetadata.Source
