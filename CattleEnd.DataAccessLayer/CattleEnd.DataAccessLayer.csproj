@@ -64,9 +64,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\CattleEnd.SharedModels\CattleEnd.SharedModels.csproj">
       <Project>{9e03ec0f-c4e1-4802-a824-b3db05eaf265}</Project>
@@ -77,6 +75,9 @@
     <EmbeddedResource Include="Migrations\201704110718359_init.resx">
       <DependentUpon>201704110718359_init.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
