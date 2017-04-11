@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
+﻿using CattleEnd.ServiceLayer.Services;
 using CattleEnd.SharedModels.Models;
-using CattleEnd.ServiceLayer.Services;
+using System.Web.Mvc;
 
 namespace CattleEnd.Web.Controllers
 {

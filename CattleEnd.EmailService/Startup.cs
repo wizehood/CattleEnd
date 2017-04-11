@@ -13,7 +13,7 @@ namespace CattleEnd.EmailService
         {
             //Trigger DoWork method on start
             Start();
-            workingThread = new System.Threading.Thread(PrepareTask);
+            workingThread = new Thread(PrepareTask);
             workingThread.Start();
         }
 
@@ -21,7 +21,7 @@ namespace CattleEnd.EmailService
         {
             myTimer.Elapsed += new System.Timers.ElapsedEventHandler(myTimer_Elapsed);
 
-            //Check time every 1 minute
+            //Check time every minute
             myTimer.Interval = 60000;
             myTimer.Start();
             Thread.Sleep(Timeout.Infinite);
